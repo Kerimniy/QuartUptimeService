@@ -1,0 +1,193 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: aliceblue;
+  background-color: rgb(31, 31, 31);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+  min-height: 60px;
+  padding: 0 3vh;
+  border-bottom: 0.5vh solid rgb(66, 66, 66);
+  box-sizing: border-box;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 3.2vh;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+header button {
+  height: 6vh;
+  min-height: 40px;
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: 50%;
+  background-color: rgb(66, 66, 66);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+header button:hover {
+  background-color: rgb(90, 90, 90);
+}
+
+.bottom-object {
+  position: sticky;
+  bottom: 0; 
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  z-index: 10;
+  color: black;
+}
+
+.buttonSettings {
+  background-color: rgb(75, 75, 75); 
+  padding: 1vh; 
+  height: 100%; 
+  width: 100%;
+  border-radius: 2vh; 
+  color: #f0f0f0; 
+  cursor: pointer;
+  box-sizing: border-box; 
+}
+
+.textinput {
+  background-color: rgb(75, 75, 75); 
+  padding: 1vh; 
+  border-radius: 2vh; 
+  color: #f0f0f0; 
+  width: 100%;
+  height: 100%; 
+  box-sizing: border-box;
+  resize: none;
+}
+
+.textinput::-webkit-scrollbar {
+  display: none;
+}
+
+.textinput::-webkit-inner-spin-button {
+  display: none;
+}
+
+.servicesettingsgrid {
+  display: grid; 
+  grid-template-columns: minmax(80px, 10%) minmax(150px, 30%) minmax(200px, 55%) minmax(50px, 5%); 
+  grid-template-rows: auto auto; 
+  column-gap: 1vw;
+  row-gap: 1vh;
+  width: 90%;
+  margin: 5vh auto;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.monitorsettingsgrid {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 0.25fr 0.25fr 0.275fr 0.25fr 0.25fr; 
+  grid-template-rows: auto auto; 
+  column-gap: 1vh;
+  row-gap: 1vh;
+  width: 90%;
+  margin: 5vh auto;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.createmonitorgrid {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 0.25fr 0.25fr 0.275fr 0.25fr; 
+  grid-template-rows: auto auto; 
+  column-gap: 1vh;
+  row-gap: 1vh;
+  width: 90%;
+  margin: 5vh auto;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+@media (max-width: 600px) {
+  .servicesettingsgrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fill, auto); 
+  }
+  
+  .createmonitorgrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fill, auto); 
+  }
+
+  .monitorsettingsgrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fill, auto);
+  }
+
+  .textinput, .buttonSettings {
+    position: static;
+    transform: none;
+    left: auto;
+    width: 100%; 
+  }
+
+  div[style*="text-align: center;"] {
+    text-align: left;
+  }
+}
+
+
+
+a{
+  color: #f0f0f0;
+  text-decoration: none;
+}
+.togglebuttonBg{
+        display: block; 
+        width: 9vw;
+        position: relative; 
+        left: 0%; 
+        top: 0vh;
+        height: 2.2vw; 
+        background-color: rgb(65, 65, 65); 
+        border-radius: 2.5vh;
+    }
+    .togglebuttonSl{
+        position: relative;
+        top: 0px;
+        display: block; 
+        
+        height: 100%; 
+        aspect-ratio: 1/1;
+        left: 0%;
+        border-radius: 2.5vh;
+        transform: translateX(0%);
+        background-color: rgb(80, 0, 0); 
+        transition:  left 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+
+    }
+    .checkbox{
+        display: none;
+    }
+    .checkbox:checked + .togglebuttonBg {
+        transition:  left 0.15s ease, background-color 0.15s ease;
+    }
+    .checkbox:checked + .togglebuttonBg .togglebuttonSl {
+        left: 100%;
+        transform: translateX(-100%);
+        background-color: rgb(0, 80, 0); 
+        transition:  left 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+    }
+    label[for="toggle"] {
+      display: inline-block;
+      width: auto;
+    }
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{title}} Admin Panel</title>
+  <link rel="icon" type="image/x-icon" href="{{path}}"> 
+
+  <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
+
+
+</head>
+<body onload="loadInitial()">
+
+  <header>
+    <a href="{{url_for('index')}}"><h1 id="h1title">{{title}} Admin Panel</h1></a>
+    <a href="{{url_for('logout')}}" style="height: 30%; aspect-ratio: 1/1;">
+      <img src="{{url_for('static',filename='img/logout.webp')}}" style="filter: invert(1); width: 100%;">
+    </a>
+  </header>
+
+  <div style=" margin-top: 4vh; margin-bottom: 4vh;">
+    <h2 style="margin-left: 10vw;">Server Settings</h2>
+    <div id="serversettings" class="servicesettingsgrid">
+     <div style="text-align: center;">Favicon</div>
+      <div style="text-align: center;">Title</div>
+      <div style="text-align: center;">Readme</div>
+      <div></div>
+      <div><button id="finputbutton" class="buttonSettings" onclick="imitatefinput()" style="overflow: hidden;">Upload</button></div>
+      <div><textarea class="textinput">{{title}}</textarea></div>
+      <div><textarea class="textinput">{{md}}</textarea></div>
+      <div><button class="buttonSettings" onclick="chengeServerSettings()">Save</button></div>
+
+    </div>
+  </div>
+
+  <div style=" margin-top: 7vh; margin-bottom: 4vh;">
+    <h2 style="margin-left: 10vw;">Create new monitor</h2>
+    
+    <div id="createGrid" class="createmonitorgrid">
+      <div style="text-align: center;">Url</div>
+      <div style="text-align: center;">Name</div>
+      <div style="text-align: center;">Group</div>
+      <div style="text-align: center;">Interval</div>
+      <div style="text-align: center;">Timeout</div>
+      <div style="text-align: center;">Allow Redirect</div>
+      <div></div>
+                
+      <div><textarea class="textinput"></textarea></div>
+      <div><textarea class="textinput"></textarea></div>
+      <div><textarea class="textinput"></textarea></div>
+      <div><input class="textinput" style="min-height: 55%;" type="number"></div>
+      <div><input class="textinput" style="min-height: 55%;" type="number"></div>
+
+      <div><label style="cursor: pointer;position: relative; top: 25%; left: 0%; transform: translate(-50%,-50%);" for="toggleC">
+        <input type="checkbox" name="toggle" id="toggleC" checked="true" class="checkbox">
+            <div class="togglebuttonBg">
+              <div class="togglebuttonSl"></div>
+            </div>
+          </label>   
+        </div>
+
+        <div><button class="buttonSettings" style="grid-column: 1 / span 2;" onclick="show('createMonitor', 1);">Create</button></div>
+
+
+
+    </div>
+
+    
+  </div>
+
+  <div id="monitorchart" style=" margin-top: 7vh; margin-bottom: 4vh;">
+    <h2 style="margin-left: 10vw;">Monitor Settings</h2>
+  
+
+    
+  </div>
+
+
+  <input id="finput" style="display: none;" onchange="setfilename()" type="file" accept=".png,.webp,.ico">
+
+
+</body>
+
+<script defer src="{{url_for('static', filename='js/admin.js')}}"></script>
+
+
+</html>

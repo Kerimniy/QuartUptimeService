@@ -1,0 +1,6 @@
+quart
+aiohttp
+aiosqlite
+bcrypt
+markdown
+werkzeug

@@ -1,0 +1,155 @@
+
+.js-tooltiptext {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+}
+.js-tooltiptext.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+div{
+  margin: 0%;
+}
+
+	
+
+
+.service-grid{
+  align-items: center;
+  
+  position: relative; 
+  width: 100%; 
+  height: 100%; 
+  margin: 2vh; 
+  border-radius: 2vh; 
+  display: grid; 
+  gap:5px;  
+  grid-template-columns: 15% 30% 50%; 
+  background-color: rgb(44, 37, 37);
+  align-items: center;
+  justify-items: center;
+  padding-bottom: 0.75vh;
+}
+.service-uptime{
+
+  width: 80%; 
+  height: 60%; 
+  display:  block; 
+  border-radius: 2vh; 
+  background-color: rgb(0, 163, 68); 
+  text-align: center;
+}
+
+.service-name{
+  color: aliceblue;
+}
+
+.uptimebar{
+  width: 95%;
+  justify-content:space-around;
+  height: 80%; 
+  display: flex; 
+  align-items: center;  
+  padding-left: 1%; 
+  border-radius: 3vh;
+}
+@media (max-width: 768px){
+  .uptimebar{
+  display: none;
+}
+
+.service-grid{
+  width: 100%; 
+  height: 100%; 
+  margin: 2vh; 
+  border-radius: 2vh; 
+  display: grid; 
+  gap:5px;  
+  grid-template-columns: 40% 60%; 
+  background-color: rgb(44, 37, 37);
+}
+}
+
+
+
+
+
+        .shimmer-container {
+            width: 100%; 
+            height: 100%; 
+            margin: 2vh; 
+            z-index: 10;
+            border-radius: 5vh;
+            background-color: rgb(48, 48, 48);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ddd; 
+        }
+        
+        .shimmer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(148, 148, 148, 1) 50%,
+                transparent 100%
+            );
+            transform: translateX(-50%);
+            background-size: 250% 150%;
+            will-change: transform; 
+            animation: shimmer 0.8s infinite ease; 
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-50%); }
+            50% { transform: translateX(60%); }
+            100% { transform: translateX(-50%); }
+
+        }
+
+
+
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: aliceblue;
+      background-color: rgb(31, 31, 31);
+    }
+
+    .bottom-object {
+      position: sticky;
+      bottom: 0; 
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .mdblock{
+      display: block;  
+      padding: 2vh; 
+      background-color: rgb(63, 63, 63); 
+      position: relative; 
+      width: 80%; 
+      border-radius: 5vh; 
+      min-height: 10px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      margin-top: 5vh; 
+      margin-bottom: 5vh;
+    }
+    .dispnone{
+      display: none;
+    }

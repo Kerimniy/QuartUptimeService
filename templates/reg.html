@@ -1,0 +1,148 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registration</title>
+
+  <style>
+    
+        body {
+        background-color: #131313;
+        font-family: 'Ubuntu', sans-serif;
+    }
+    
+    .main {
+        background-color: #252525;
+        width: 400px;
+        height: 400px;
+        margin: 7em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+    
+    .sign {
+        padding-top: 40px;
+        color: #dfdfdf;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 23px;
+    }
+    
+    .un {
+    width: 76%;
+    color: #dfdfdf;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(158, 152, 152, 0.1);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    
+    .form1{
+        padding-top: 2vh;
+    }
+    
+   
+    .un:focus, .pass:focus {
+        border: 2px solid rgba(0, 0, 0, 0.18) !important;
+        
+    }
+    
+    .submit {
+      cursor: pointer;
+        border-radius: 5em;
+        color: #fff;
+        background: linear-gradient(to right, #333333, #494949);
+        border: 0;
+        margin-top: 2vh;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-family: 'Ubuntu', sans-serif;
+        margin-left: 35%;
+        font-size: 13px;
+        box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    }
+    
+    .forgot {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        padding-top: 15px;
+    }
+    
+    a {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        text-decoration: none
+    }
+    
+    @media (max-width: 600px) {
+        .main {
+            border-radius: 0px;
+        }
+        
+      }
+
+
+
+  </style>
+
+</head>
+
+<body>
+  <div class="main">
+    <p class="sign" align="center">Registration</p>
+    <div class="form1">
+      <input id="login" class="un " type="text" align="center" placeholder="Login">
+      <input id="password" class="un" type="text" align="center" placeholder="Password">
+      <button class="submit" onclick="post()"  align="center">Submit</button>
+            
+                
+    </div>
+     
+</body>
+
+<script>
+    
+   function post(){
+        
+        let login_input  = document.getElementById("login")
+        let interval_input  = document.getElementById("password")
+    
+        let data = {"login": login_input.value, "password": interval_input.value}
+
+        fetch("http://localhost:5000/api/registrate",{
+            headers: {  
+                'Content-Type': 'application/json'
+            },
+			method:"POST",
+			body: JSON.stringify(data),
+		})
+		.then(function(response){
+			return response.text();
+		})
+		.then(function(data){
+			if (data == "400"){
+                alert("login or password incorrect")
+            }
+            else{
+                window.location = data
+            }
+		})
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="preload">
+    <title>{{ title }}</title>	
+    <meta name="description" content="Status Page - Мониторинг систем">
+    <meta name="robots" content="index, follow"/>
+    <meta name="author" content="Kerimniy">
+    <link rel="icon" type="image/x-icon" href="{{path}}"> 
+
+  <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+
+
+
+</head>
+
+<body style="padding: 0%; margin: 0%;">
+
+
+    <div style="height: 10vh; display: flex; align-items: center; border-bottom: 0.5vh solid rgb(66, 66, 66);">
+
+      <img style="position: relative; margin-left: 10vw; height: 60%;" src="{{path}}">
+      <h1 style="position: relative;margin: 0px; margin-left: 5vh;line-height: 1;">{{ title }}</h1>
+
+    </div>
+     
+    <div class="{{classname}}">
+      <div style="margin-left: 2.5%;">
+        {{md|safe}}
+      </div>
+    </div>
+
+    <div id="chart" style="position: relative; width: 80%; min-height: {{min_h}}vh; left: 50%; transform: translateX(-50%); margin-top: 5vh; margin-bottom: 5vh;"></div>
+
+
+    <div style="position: relative; text-align: center;" id="counter">Refresh in XXm XXs</div>
+</body>
+
+
+<script defer src="{{url_for('static', filename='js/index.js')}}"></script>
+
+
+</html>

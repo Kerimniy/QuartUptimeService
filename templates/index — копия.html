@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="preload">
+    <title>{{ title }}</title>	
+    <meta name="description" content="Status Page - Мониторинг систем">
+    <meta name="robots" content="index, follow"/>
+    <meta name="author" content="Kerimniy">
+    <link rel="icon" type="image/x-icon" href="{{path}}"> 
+
+<style>
+.js-tooltiptext {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+}
+.js-tooltiptext.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+div{
+  margin: 0%;
+}
+</style>
+	
+<style>
+
+.service-grid{
+  align-items: center;
+  
+  position: relative; 
+  width: 100%; 
+  height: 100%; 
+  margin: 2vh; 
+  border-radius: 2vh; 
+  display: grid; 
+  gap:5px;  
+  grid-template-columns: 15% 30% 50%; 
+  background-color: rgb(44, 37, 37);
+  align-items: center;
+  justify-items: center;
+}
+.service-uptime{
+
+  width: 80%; 
+  height: 60%; 
+  display:  block; 
+  border-radius: 2vh; 
+  background-color: rgb(0, 163, 68); 
+  text-align: center;
+}
+
+.service-name{
+  width: 90%; 
+  height: 80%; 
+  color: aliceblue;
+}
+
+.uptimebar{
+  width: 95%;
+  justify-content:space-around;
+  height: 80%; 
+  display: flex; 
+  align-items: center;  
+  padding-left: 1%; 
+  border-radius: 3vh;
+}
+@media (max-width: 768px){
+  .uptimebar{
+  display: none;
+}
+
+.service-grid{
+  width: 100%; 
+  height: 100%; 
+  margin: 2vh; 
+  border-radius: 2vh; 
+  display: grid; 
+  gap:5px;  
+  grid-template-columns: 40% 60%; 
+  background-color: rgb(44, 37, 37);
+}
+}
+
+</style>
+
+<style>
+
+        .shimmer-container {
+            width: 100%; 
+            height: 100%; 
+            margin: 2vh; 
+            z-index: 10;
+            border-radius: 5vh;
+            background-color: rgb(48, 48, 48);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ddd; 
+        }
+        
+        .shimmer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(148, 148, 148, 1) 50%,
+                transparent 100%
+            );
+            transform: translateX(-50%);
+            background-size: 250% 150%;
+            will-change: transform; 
+            animation: shimmer 0.8s infinite ease; 
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-50%); }
+            50% { transform: translateX(60%); }
+            100% { transform: translateX(-50%); }
+
+        }
+</style>
+
+<style>
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: aliceblue;
+      background-color: rgb(31, 31, 31);
+    }
+
+    .bottom-object {
+      position: sticky;
+      bottom: 0; 
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .mdblock{
+      display: block;  
+      padding: 2vh; 
+      background-color: rgb(63, 63, 63); 
+      position: relative; 
+      width: 80%; 
+      border-radius: 5vh; 
+      min-height: 10px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      margin-top: 5vh; 
+      margin-bottom: 5vh;
+    }
+    .dispnone{
+      display: none;
+    }
+</style>
+
+
+</head>
+
+<body style="padding: 0%; margin: 0%;">
+
+
+    <div style="height: 10vh; display: flex; align-items: center; border-bottom: 0.5vh solid rgb(66, 66, 66);">
+
+      <img style="position: relative; margin-left: 10vw; height: 60%;" src="{{path}}">
+      <h1 style="position: relative;margin: 0px; margin-left: 5vh;line-height: 1;">{{ title }}</h1>
+
+    </div>
+     
+    <div class="{{classname}}">
+
+      {{md}}
+
+    </div>
+
+    <div id="chart" style="position: relative; width: 80%; min-height: 50vh; left: 50%; transform: translateX(-50%); margin-top: 5vh; margin-bottom: 5vh;"></div>
+
+
+    <div style="position: relative; text-align: center;" id="counter">Next update in XXm XXs</div>
+</body>
+
+
+<script>
+  const rate = 300
+  let time = rate
+
+
+  const counter_div = document.getElementById("counter")
+
+  counter_div.innerText = `Next update in ${Math.floor(time/60)}m ${time%60}s`
+
+  setInterval(()=>{time--; if (time<0){time = rate; update()}; counter_div.innerText = `Next update in ${Math.floor(time/60)}m ${time%60}s`; },1000)
+
+</script>
+
+<script>
+
+  let chart = document.getElementById("chart");
+
+function createBar(item) {
+    const div = document.createElement('div');
+    div.style.width = '2.25%';
+    div.style.height = '90%';
+    div.style.background = `rgb(${item["rgb"][0]}, ${item["rgb"][1]}, ${item["rgb"][2]})`;
+    div.style.borderRadius = '0.7vh';
+    div.style.marginLeft = '0.5%';
+    div.onmouseover = (e) => showTooltip(e.target, `${item["time"]} - ${item["uptime"]*100}%`);
+    div.onmouseout = hideTooltip;
+    
+    return div;
+}
+
+
+async function loadInitial() {
+
+    try {
+      fetch('http://localhost:5000/api/hourinfo')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(_data =>{
+          for (let group in _data){
+            chart.appendChild(createElementFromHTML(`<div style="width: 100%; position: relative; margin-bottom: 3vh;"> 
+              <div style="margin: 4vh; margin-left: 5%;">${group}</div> 
+            </div>`
+            ))
+            groupel = chart.lastElementChild;
+            for (let el in _data[group]){
+              groupel.appendChild(createElementFromHTML(`
+                <div style="position: relative; width: 92.5%; height: 5vh; margin: 2vh; "> 
+                  <div  class="service-grid"> 
+                    <div class="service-uptime"><p style="transform: translateY(-50%);" >10%</p></div> 
+                    <div class="service-name"><p>ServiceName</p></div> 
+                    <div class="uptimebar"></div> 
+                  </div>
+                  <div style="display: none;" class="shimmer-container"><div class="shimmer-overlay"></div></div>
+
+                </div>`));  
+              groupel.lastElementChild.children[0].children[0].lastElementChild.innerText = `${_data[group][el][0]["uptime"]}%`
+              groupel.lastElementChild.children[0].children[1].lastElementChild.innerText = el
+              groupel.lastElementChild.children[0].children[0].style.background = `rgb(${_data[group][el][0]["rgb"][0]},${_data[group][el][0]["rgb"][1]},${_data[group][el][0]["rgb"][2]})`
+              let bar = groupel.lastElementChild.children[0].lastElementChild;
+              for (let i = _data[group][el].length - 1; i > 0; i--){
+                  bar.appendChild(createBar(_data[group][el][i]));
+              }
+            //  _data[el].forEach(item => chart.lastChild.appendChild(createBar(item)));
+
+            }
+          }
+        })
+        
+        
+    } catch (err) {
+        console.error('Initial load failed:', err);
+    }
+}
+
+async function update() {
+
+    try {
+      fetch('http://localhost:5000/api/updhourinfo')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(_data =>{
+          
+          let k = 0;
+          for (let group in _data){
+            let j=1;
+            for (let el in _data[group]){
+              chart.children[k].children[j].children[0].style.display = "none";
+              chart.children[k].children[j].children[1].style.display = "block";
+              chart.children[k].children[j].children[0].children[0].lastElementChild.innerText = `${_data[group][el][0]["uptime"]}%`
+              chart.children[k].children[j].children[0].children[1].lastElementChild.innerText = el
+              chart.children[k].children[j].children[0].children[0].style.background = `rgb(${_data[group][el][0]["rgb"][0]},${_data[group][el][0]["rgb"][1]},${_data[group][el][0]["rgb"][2]})`
+              let bar = chart.children[k].children[j].children[0].lastElementChild;
+              for (let i = 0; i < _data[group][el].length-1; i++){
+                  bar.children[0].remove()
+              }
+              for (let i=_data[group][el].length-1; i>0;i--){
+                  bar.appendChild(createBar(_data[group][el][i]));
+              }
+              let c_j = j
+              let c_k = k
+              setTimeout( ()=>{
+                
+                chart.children[c_k].children[c_j].children[0].style.display = "grid";
+                chart.children[c_k].children[c_j].children[1].style.display = "none";
+              },250)
+              j++;
+            }
+            k++;
+          }
+        })
+        
+        
+    } catch (err) {
+        console.error('Initial load failed:', err);
+    }
+}
+
+loadInitial();
+
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+  return div.firstChild;
+}
+
+</script>
+
+
+<script>
+function showTooltip(element, text) {
+  var tooltip = document.createElement('div');
+  tooltip.innerHTML = text;
+  tooltip.classList.add('js-tooltiptext');
+  document.body.appendChild(tooltip);
+
+  element.onmousemove = function(e) {
+    tooltip.style.top = (e.pageY + 10) + 'px';
+    tooltip.style.left = (e.pageX) + 'px';
+  };
+
+  requestAnimationFrame(() => {
+    tooltip.classList.add('visible');
+  });
+}
+
+function hideTooltip() {
+  var tooltips = document.querySelectorAll('.js-tooltiptext');
+  tooltips.forEach(function(tooltip) {
+    tooltip.classList.remove('visible');
+    setTimeout(() => tooltip.remove(), 250);
+  });
+}
+
+</script>
+
+
+
+</html>
