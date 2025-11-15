@@ -1,8 +1,13 @@
+<img src="https://github.com/Kerimniy/QuartUptimeService/blob/main/for_readme/QUS.png" style="width: 70px">
+
 # QuartUptimeService
 
 ## What It Is
 
 Uptime Monitor is an asynchronous web service built on Python (Quart + asyncio) for monitoring the availability of websites and APIs. It periodically sends HTTP requests to specified URLs, logs statuses in SQLite, and generates uptime charts (for the last hour). Supports service groups, authentication, and a simple dashboard.
+
+<img src="https://github.com/Kerimniy/QuartUptimeService/blob/main/for_readme/QUSP.png" style="width: 95%; margin-left: 2vh; position: relative; left:50%; transform: translateX(-50%)">
+
 
 ## Installation
 
