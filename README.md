@@ -1,3 +1,6 @@
+На русском тута <a href="https://github.com/Kerimniy/QuartUptimeService/blob/main/README-RU.md">тык</a>
+
+
 <img src="https://github.com/Kerimniy/QuartUptimeService/blob/main/for_readme/QUS.png" style="width: 70px">
 
 # QuartUptimeService
@@ -16,7 +19,7 @@ Uptime Monitor is an asynchronous web service built on Python (Quart + asyncio) 
    pip install requerments.txt
    ```
 
-2. **Files**: Place `app.py` and `Monitor.py` in the same folder. Create `static/img/` for images.
+2. **Files**: clone repo.
 
 3. **Run**:
    ```
