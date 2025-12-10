@@ -123,7 +123,7 @@
     
         let data = {"login": login_input.value, "password": interval_input.value}
 
-        fetch("http://localhost:5000/api/registrate",{
+        fetch("/api/registrate",{
             headers: {  
                 'Content-Type': 'application/json'
             },
